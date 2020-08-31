@@ -99,6 +99,19 @@ module.exports = {
 
       assert._isEqual(td.explain(dependency.foo.bar).isTestDouble, true)
     },
+    'Replacing a getter-only property' () {
+      dependency = {};
+      Object.defineProperty(dependency, 'foo', {
+        enumerable: true,
+        get() {
+          return 'bar';
+        },
+      });
+
+      td.replace(dependency, 'foo')
+
+      assert._isEqual(td.explain(dependency.foo.bar).isTestDouble, true)
+    },
     'Replacing a property that is not an object/function': {
       'number' () {
         dependency.badType = 5
